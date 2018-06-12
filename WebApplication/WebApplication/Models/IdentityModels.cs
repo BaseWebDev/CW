@@ -25,11 +25,10 @@ namespace WebApplication.Models
     {
         public DbSet<Customer> Customers { get; set; }
         public DbSet<JointPurchase> JointPurchases { get; set; }
-        public DbSet<Order> Orders { get; set; }
+        public DbSet<Cart> Carts { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<URLDate> URLDates { get; set; }
-
+        
         public ApplicationDbContext()
             : base("JointPurchase", throwIfV1Schema: false)
         {

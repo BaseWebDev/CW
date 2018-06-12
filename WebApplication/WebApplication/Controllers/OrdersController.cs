@@ -49,12 +49,12 @@ namespace WebApplication.Controllers
                 var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
                 var customerId = identity.Claims.Where(c => c.Type == "CustomerId").Select(c => c.Value).SingleOrDefault();
                 if (int.TryParse(customerId, out int custI)) {
-                    var lst = db.Orders.Where(cust => cust.Customer.Id == custI).ToList();
+                    var lst = db.Carts.Where(cust => cust.Customer.Id == custI).ToList();
                     return View(lst);   //user.Customer
                 }
             }
             //   roles = userManager.GetRoles(user.Id);
-            return View(db.Orders.ToList());
+            return View(db.Carts.ToList());
         }
 
         // GET: Orders/Details/5
@@ -65,7 +65,7 @@ namespace WebApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
+            Cart order = db.Carts.Find(id);
             if (order == null)
             {
                 return HttpNotFound();
@@ -86,11 +86,11 @@ namespace WebApplication.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "Id")] Order order)
+        public ActionResult Create([Bind(Include = "Id")] Cart order)
         {
             if (ModelState.IsValid)
             {
-                db.Orders.Add(order);
+                db.Carts.Add(order);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -106,7 +106,7 @@ namespace WebApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
+            Cart order = db.Carts.Find(id);
             if (order == null)
             {
                 return HttpNotFound();
@@ -120,7 +120,7 @@ namespace WebApplication.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Edit([Bind(Include = "Id")] Order order)
+        public ActionResult Edit([Bind(Include = "Id")] Cart order)
         {
             if (ModelState.IsValid)
             {
@@ -139,7 +139,7 @@ namespace WebApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
+            Cart order = db.Carts.Find(id);
             if (order == null)
             {
                 return HttpNotFound();
@@ -153,8 +153,8 @@ namespace WebApplication.Controllers
         [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
-            Order order = db.Orders.Find(id);
-            db.Orders.Remove(order);
+            Cart order = db.Carts.Find(id);
+            db.Carts.Remove(order);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

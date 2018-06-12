@@ -8,7 +8,7 @@ namespace SiteJointPurchase.Domain.Entities {
     public class Customer {
         [Key]
         public int Id { get; set; }
-        private List<Order> orders = new List<Order>(); 
+        private List<Cart> orders = new List<Cart>(); 
         /// <summary>
         /// Фамилия
         /// </summary>
@@ -31,9 +31,9 @@ namespace SiteJointPurchase.Domain.Entities {
        // [Required]
       //  public User User { get; set; }
 
-        public List<Order> Orders { get => orders; set => orders=value; }
+        public List<Cart> Orders { get => orders; set => orders=value; }
 
-        public void Add(Order ord) {
+        public void Add(Cart ord) {
             orders.Add(ord);
         }
 

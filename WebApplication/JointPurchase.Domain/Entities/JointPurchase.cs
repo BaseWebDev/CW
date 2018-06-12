@@ -6,9 +6,9 @@ using System.Web;
 namespace SiteJointPurchase.Domain.Entities {
     public class JointPurchase {
         public int Id { get; set; }
-        private List<Order> orders = new List<Order>();
-        public List<Order> Orders { get => orders; set => orders = value; }
-        public void Add(Order order) {
+        private List<Cart> orders = new List<Cart>();
+        public List<Cart> Orders { get => orders; set => orders = value; }
+        public void Add(Cart order) {
             orders.Add(order);
         }
         public decimal GetTotal() {

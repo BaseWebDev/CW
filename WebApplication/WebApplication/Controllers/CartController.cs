@@ -12,44 +12,39 @@ namespace WebApplication.Controllers
 
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public ViewResult Index(string returnUrl) {
+        public ViewResult Index(Cart cart, string returnUrl) {
             return View(new CartIndexViewModel {
-                Cart = GetCart(),
+                Cart = cart,
                 ReturnUrl = returnUrl
             });
         }
 
-        public RedirectToRouteResult AddToCart(int Id, string returnUrl) {  // Id интерпретируется дословно
+        public RedirectToRouteResult AddToCart(Cart cart, int Id, string returnUrl) {  // Id интерпретируется дословно
             Product prd = db.Products
                 .FirstOrDefault(g => g.Id == Id);
 
             if (prd != null) {
-                GetCart().AddItem(prd, 1);
+                cart.AddItem(prd, 1);
             }
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public RedirectToRouteResult RemoveFromCart(int Id, string returnUrl) {
+        public RedirectToRouteResult RemoveFromCart(Cart cart, int Id, string returnUrl) {
             Product prd = db.Products
                .FirstOrDefault(g => g.Id == Id);
 
             if (prd != null) {
-                GetCart().RemoveItem(prd);
+                cart.RemoveItem(prd);
             }
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public Order GetCart() {
-            Order cart = (Order)Session["Cart"];
-            if (cart == null) {
-                cart = new Order();
-                Session["Cart"] = cart;
-            }
-            return cart;
+        public ViewResult Checkout(Cart cart, ShippingDetails shippingDetails) {
+            return View(new ShippingDetails());
         }
 
-        public PartialViewResult Summary(Order Сart) {
-            return PartialView(Сart);
+        public PartialViewResult Summary(Cart cart) {
+            return PartialView(cart);
         }
     }
 }

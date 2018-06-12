@@ -8,7 +8,7 @@ namespace SiteJointPurchase.Domain.Entities {
     /// <summary>
     /// Заказ
     /// </summary>
-    public class Order {
+    public class Cart {
         [Key]
         public int Id { get; set; }
         private List<Item> items = new List<Item>();       

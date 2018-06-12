@@ -10,8 +10,7 @@ namespace SiteJointPurchase.Domain.Entities {
         private decimal price;
         private string sku;
 
-        private URLDate uRLDate;
-
+       
 
         public Product() {
         }
@@ -20,9 +19,7 @@ namespace SiteJointPurchase.Domain.Entities {
             this.price = price;
             this.sku = sku;
         }
-        public Product(string name, decimal price, string sku, URLDate uRLDate) : this(name, price, sku) {
-            this.uRLDate = uRLDate;
-        }
+        
         [Key]
         public int Id { get; set; }
         public string Name { get=> name; set => name = value; }
@@ -33,8 +30,6 @@ namespace SiteJointPurchase.Domain.Entities {
         public string Sku { get => sku; set => sku = value; }
 
         public string Category { get; set; }
-
-        public virtual URLDate URLDate { get => uRLDate; set => uRLDate = value; }
-        
+ 
     }
 }

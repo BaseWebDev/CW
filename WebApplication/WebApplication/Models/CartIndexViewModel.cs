@@ -6,7 +6,7 @@ using System.Web;
 
 namespace WebApplication.Models {
     public class CartIndexViewModel {
-        public Order Cart { get; set; }
+        public Cart Cart { get; set; }
         public string ReturnUrl { get; set; }
     }
 }
