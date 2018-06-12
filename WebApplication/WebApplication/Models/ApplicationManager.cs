@@ -9,7 +9,7 @@ namespace WebApplication.Models {
         }
         public static ApplicationManager Create(IdentityFactoryOptions<ApplicationManager> options,
                                             IOwinContext context) {
-            ApplicationContext db = context.Get<ApplicationContext>();
+            ApplicationDbContext db = context.Get<ApplicationDbContext>();
             ApplicationManager manager = new ApplicationManager(new UserStore<ApplicationUser>(db));
             return manager;
         }

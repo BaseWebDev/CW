@@ -1,12 +1,9 @@
-﻿using System.Data.Entity;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using SiteJointPurchase.Domain.Entities;
 
-namespace WebApplication.Models
-{
+namespace WebApplication.Models {
     // В профиль пользователя можно добавить дополнительные данные, если указать больше свойств для класса ApplicationUser. Подробности см. на странице https://go.microsoft.com/fwlink/?LinkID=317594.
     public class ApplicationUser : IdentityUser
     {
@@ -19,25 +16,5 @@ namespace WebApplication.Models
             // Здесь добавьте утверждения пользователя
             return userIdentity;
         }
-    }
-
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<JointPurchase> JointPurchases { get; set; }
-        public DbSet<Cart> Carts { get; set; }
-        public DbSet<Item> Items { get; set; }
-        public DbSet<Product> Products { get; set; }
-        
-        public ApplicationDbContext()
-            : base("JointPurchase", throwIfV1Schema: false)
-        {
-        }
-
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
-       
     }
 }
