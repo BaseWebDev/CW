@@ -27,10 +27,28 @@ namespace WebApplication.Controllers
         }
         // Перегруженная версия Edit() для сохранения изменений
         // Доступ только для админа
+        //[Authorize(Roles = "admin")]
+        //[HttpPost]
+        //public ActionResult Edit(Product prd) {
+        //    if (ModelState.IsValid) {
+        //        SaveProduct(prd);
+        //        TempData["message"] = string.Format("Изменения в товаре \"{0}\" были сохранены", prd.Name);
+        //        return RedirectToAction("Index");
+        //    } else {
+        //        // Что-то не так со значениями данных
+        //        return View(prd);
+        //    }
+        //}
+        // Доступ только для админа
         [Authorize(Roles = "admin")]
         [HttpPost]
-        public ActionResult Edit(Product prd) {
+        public ActionResult Edit(Product prd, HttpPostedFileBase image = null) {
             if (ModelState.IsValid) {
+                if (image != null) {
+                    prd.ImageMimeType = image.ContentType;
+                    prd.ImageData = new byte[image.ContentLength];
+                    image.InputStream.Read(prd.ImageData, 0, image.ContentLength);
+                }
                 SaveProduct(prd);
                 TempData["message"] = string.Format("Изменения в товаре \"{0}\" были сохранены", prd.Name);
                 return RedirectToAction("Index");
@@ -61,12 +79,14 @@ namespace WebApplication.Controllers
             if (prd.Id == 0)
                 db.Products.Add(prd);
             else {
-                Product dbEntry = db.Products.Find(prd.Id);
-                if (dbEntry != null) {
-                    dbEntry.Name = prd.Name;
-                    dbEntry.Sku = prd.Sku;
-                    dbEntry.Price = prd.Price;
-                    dbEntry.Category = prd.Category;
+                Product prdEntry = db.Products.Find(prd.Id);
+                if (prdEntry != null) {
+                    prdEntry.Name = prd.Name;
+                    prdEntry.Sku = prd.Sku;
+                    prdEntry.Price = prd.Price;
+                    prdEntry.Category = prd.Category;
+                    prdEntry.ImageData = prd.ImageData;
+                    prdEntry.ImageMimeType = prd.ImageMimeType;
                 }
             }
             db.SaveChanges();

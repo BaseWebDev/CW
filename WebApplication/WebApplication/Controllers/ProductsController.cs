@@ -21,6 +21,17 @@ namespace WebApplication.Controllers
             return View(db.Products.ToList());
         }
 
+        public FileContentResult GetImage(int Id) {
+            Product prd = db.Products
+                .FirstOrDefault(g => g.Id == Id);
+
+            if (prd != null) {
+                return File(prd.ImageData, prd.ImageMimeType);
+            } else {
+                return null;
+            }
+        }
+
         //public ViewResult List(int page = 1) {
         //    ProductsListViewModel model = new ProductsListViewModel {
         //        Products = db.Products
@@ -34,7 +45,7 @@ namespace WebApplication.Controllers
         //        }
         //    };
         //    return View(model);
-            
+
         //}
         public ViewResult List(string category, int page = 1) {
         ProductsListViewModel model = new ProductsListViewModel {

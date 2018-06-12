@@ -5,7 +5,7 @@
         <span class="pull-right label label-primary">@Model.Price.ToString("# руб")</span>
     </h3>
     <span class="lead">@Model.Name</span>
-</div>*@
+</div>
 <div class="well">
     <h3>
         <strong>@Model.Name</strong>
@@ -13,11 +13,32 @@
     </h3>
     @using (Html.BeginForm("AddToCart", "Cart")) {
     <div class="pull-right">
-      @*  @Html.EditorFor(Model => Model.Id, new { data_val_number = Model.Id })*@
-        @Html.HiddenFor( Model => Model.Id)   @*, new { data_val_number = Model.Id, data_val_required = Model.Id })*@
+        @Html.HiddenFor( Model => Model.Id)  
         @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
         <input type="submit" class="btn btn-success" value="Добавить в корзину" />
     </div>
     }
     <span class="lead">@Model.Name</span>
+</div>*@
+<div class="well">
+    @if (Model.ImageData != null) {
+        <div class="pull-left" style="margin-right: 10px">
+            <img class="img-thumbnail" width="75" height="75"
+                 src="@Url.Action("GetImage", "Product",
+                new { Model.Id })" />
+        </div>
+    }
+
+    <h3>
+        <strong>@Model.Name</strong>
+        <span class="pull-right label label-primary">@Model.Price.ToString("# руб")</span>
+    </h3>
+    @using (Html.BeginForm("AddToCart", "Cart")) {
+        <div class="pull-right">
+            @Html.HiddenFor(x => x.Id)
+            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+            <input type="submit" class="btn btn-success" value="Добавить в корзину" />
+        </div>
+    }
+    <span class="lead">@Model.Sku</span>
 </div>
