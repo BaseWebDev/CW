@@ -45,11 +45,12 @@ namespace WebApplication.Controllers
             }
             return RedirectToAction("Index", new { returnUrl });
         }
-
+        [Authorize]
         public ViewResult Checkout() {
             return View(new ShippingDetails());
         }
         [HttpPost]
+        [Authorize]
         public ViewResult Checkout(Cart cart, ShippingDetails shippingDetails) {
             if (cart.Items.Count() == 0) {
                 ModelState.AddModelError("", "Извините, ваша корзина пуста!");
