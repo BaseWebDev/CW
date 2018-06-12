@@ -19,9 +19,9 @@ namespace WebApplication.Controllers
             });
         }
 
-        public RedirectToRouteResult AddToCart(int productId, string returnUrl) {
+        public RedirectToRouteResult AddToCart(int Id, string returnUrl) {  // Id интерпретируется дословно
             Product prd = db.Products
-                .FirstOrDefault(g => g.Id == productId);
+                .FirstOrDefault(g => g.Id == Id);
 
             if (prd != null) {
                 GetCart().AddItem(prd, 1);
@@ -29,9 +29,9 @@ namespace WebApplication.Controllers
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public RedirectToRouteResult RemoveFromCart(int productId, string returnUrl) {
+        public RedirectToRouteResult RemoveFromCart(int Id, string returnUrl) {
             Product prd = db.Products
-               .FirstOrDefault(g => g.Id == productId);
+               .FirstOrDefault(g => g.Id == Id);
 
             if (prd != null) {
                 GetCart().RemoveItem(prd);
@@ -46,6 +46,10 @@ namespace WebApplication.Controllers
                 Session["Cart"] = cart;
             }
             return cart;
+        }
+
+        public PartialViewResult Summary(Order Сart) {
+            return PartialView(Сart);
         }
     }
 }

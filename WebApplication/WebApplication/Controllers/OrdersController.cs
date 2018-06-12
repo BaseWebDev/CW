@@ -48,8 +48,7 @@ namespace WebApplication.Controllers
             if (user != null) {
                 var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
                 var customerId = identity.Claims.Where(c => c.Type == "CustomerId").Select(c => c.Value).SingleOrDefault();
-                int custI;
-                if (int.TryParse(customerId, out custI)) {
+                if (int.TryParse(customerId, out int custI)) {
                     var lst = db.Orders.Where(cust => cust.Customer.Id == custI).ToList();
                     return View(lst);   //user.Customer
                 }

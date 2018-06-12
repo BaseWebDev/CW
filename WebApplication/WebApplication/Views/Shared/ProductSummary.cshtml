@@ -12,11 +12,12 @@
         <span class="pull-right label label-primary">@Model.Price.ToString("# руб")</span>
     </h3>
     @using (Html.BeginForm("AddToCart", "Cart")) {
-        <div class="pull-right">
-            @Html.HiddenFor(x => x.Id)
-            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
-            <input type="submit" class="btn btn-success" value="Добавить в корзину" />
-        </div>
+    <div class="pull-right">
+      @*  @Html.EditorFor(Model => Model.Id, new { data_val_number = Model.Id })*@
+        @Html.HiddenFor( Model => Model.Id)   @*, new { data_val_number = Model.Id, data_val_required = Model.Id })*@
+        @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+        <input type="submit" class="btn btn-success" value="Добавить в корзину" />
+    </div>
     }
     <span class="lead">@Model.Name</span>
 </div>

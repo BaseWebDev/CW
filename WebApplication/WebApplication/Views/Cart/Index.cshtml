@@ -18,12 +18,28 @@
         @foreach (var line in Model.Cart.Items) {
             <tr>
                 <td class="text-center">@line.Quantity</td>
+                <td class="text-left">@line.Product</td>
+                <td class="text-right">@line.Product.Price.ToString("# руб")</td>
+                <td class="text-right">
+                    @((line.Quantity * line.Product.Price).ToString("# руб"))
+                </td>
+                <td>
+                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                    {
+                        @Html.Hidden("Id", line.Product.Id)
+                        @Html.HiddenFor(x => x.ReturnUrl)
+                        <input class="btn btn-sm btn-warning" type="submit" value="Удалить" />
+                    }
+                </td>
+            </tr>
+            @*<tr>
+                <td class="text-center">@line.Quantity</td>
                 <td class="text-left">@line.Product.Name</td>
                 <td class="text-right">@line.Product.Price.ToString("# руб")</td>
                 <td class="text-right">
                     @((line.Quantity * line.Product.Price).ToString("# руб"))
                 </td>
-            </tr>
+            </tr>*@
         }
     </tbody>
     <tfoot>

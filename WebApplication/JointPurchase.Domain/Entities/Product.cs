@@ -32,6 +32,8 @@ namespace SiteJointPurchase.Domain.Entities {
         /// </summary>
         public string Sku { get => sku; set => sku = value; }
 
+        public string Category { get; set; }
+
         public virtual URLDate URLDate { get => uRLDate; set => uRLDate = value; }
         
     }

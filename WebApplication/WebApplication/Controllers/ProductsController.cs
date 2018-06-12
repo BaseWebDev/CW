@@ -21,24 +21,41 @@ namespace WebApplication.Controllers
             return View(db.Products.ToList());
         }
 
-        public ViewResult List(int page = 1) {
-            ProductsListViewModel model = new ProductsListViewModel {
-                Products = db.Products
-                .OrderBy(prod => prod.Name)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize),
+        //public ViewResult List(int page = 1) {
+        //    ProductsListViewModel model = new ProductsListViewModel {
+        //        Products = db.Products
+        //        .OrderBy(prod => prod.Name)
+        //        .Skip((page - 1) * pageSize)
+        //        .Take(pageSize),
+        //        PagingInfo = new PagingInfo {
+        //            CurrentPage = page,
+        //            ItemsPerPage = pageSize,
+        //            TotalItems = db.Products.Count()
+        //        }
+        //    };
+        //    return View(model);
+            
+        //}
+        public ViewResult List(string category, int page = 1) {
+        ProductsListViewModel model = new ProductsListViewModel {
+            Products = db.Products
+                    .Where(p => category == null || p.Category == category)
+                    .OrderBy(prd => prd.Id)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize),
                 PagingInfo = new PagingInfo {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
                     TotalItems = db.Products.Count()
-                }
+                },
+                CurrentCategory = category
             };
             return View(model);
-            
         }
+        
 
-        // GET: Products/Details/5
-        public ActionResult Details(int? id)
+    // GET: Products/Details/5
+    public ActionResult Details(int? id)
         {
             if (id == null)
             {
