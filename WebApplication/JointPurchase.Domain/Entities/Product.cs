@@ -22,14 +22,17 @@ namespace SiteJointPurchase.Domain.Entities {
         
         [Key]
         public int Id { get; set; }
+        [Display(Name = "Название")]
         public string Name { get=> name; set => name = value; }
+        [Display(Name = "Цена (руб)")]
         public decimal Price { get => price; set => price = value; }
-        /// <summary>
-        /// Артикул
-        /// </summary>
+        [Display(Name = "Артикул")]
         public string Sku { get => sku; set => sku = value; }
-
+        [Display(Name = "Категория")]
         public string Category { get; set; }
- 
+
+        public byte[] ImageData { get; set; }
+        public string ImageMimeType { get; set; }
+
     }
 }
