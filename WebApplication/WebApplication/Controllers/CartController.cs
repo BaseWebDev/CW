@@ -1,4 +1,6 @@
-﻿using SiteJointPurchase.Domain.Entities;
+﻿using SiteJointPurchase.Domain.Abstract;
+using SiteJointPurchase.Domain.Concrete;
+using SiteJointPurchase.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +13,11 @@ namespace WebApplication.Controllers
     public class CartController : Controller {
 
         private ApplicationDbContext db = new ApplicationDbContext();
+        private IOrderProcessor orderProcessor= new EmailOrderProcessor(new EmailSettings());
+
+        //public CartController(IOrderProcessor processor) {
+        //    orderProcessor = processor;
+        //}
 
         public ViewResult Index(Cart cart, string returnUrl) {
             return View(new CartIndexViewModel {
@@ -39,9 +46,24 @@ namespace WebApplication.Controllers
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public ViewResult Checkout(Cart cart, ShippingDetails shippingDetails) {
+        public ViewResult Checkout() {
             return View(new ShippingDetails());
         }
+        [HttpPost]
+        public ViewResult Checkout(Cart cart, ShippingDetails shippingDetails) {
+            if (cart.Items.Count() == 0) {
+                ModelState.AddModelError("", "Извините, ваша корзина пуста!");
+            }
+
+            if (ModelState.IsValid) {
+                orderProcessor.ProcessOrder(cart, shippingDetails);
+                cart.Clear();
+                return View("Completed");
+            } else {
+                return View(shippingDetails);
+            }
+        }
+
 
         public PartialViewResult Summary(Cart cart) {
             return PartialView(cart);
