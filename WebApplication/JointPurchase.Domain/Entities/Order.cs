@@ -12,12 +12,27 @@ namespace SiteJointPurchase.Domain.Entities {
         [Key]
         public int Id { get; set; }
         private List<Item> items = new List<Item>();       
-        public List<Item> Items { get=> items; set => items=value; }
+        public List<Item> Items { get => items; set => items = value; }
         public Customer Customer { get; set; }
-        public void Add(Product p, int qty) {
-            Item item = new Item(p, qty);
-            items.Add(item);
+        public void AddItem(Product p, int qty) {
+            
+            //Item line = items
+            //    .Where(prd => prd.Product.Id == p.Id)
+            //    .FirstOrDefault();
+            //if (line == null) {
+                Item item = new Item(p, qty);
+                items.Add(item);
+            //} else {
+            //    line.Quantity += qty;
+            //}
         }
+        public void RemoveItem(Product p) {
+            items.RemoveAll(prd => prd.Product.Id == p.Id);
+        }
+        public void Clear() {
+            items.Clear();
+        }
+
         public decimal GetTotal() {
             decimal total = 0;
             foreach (var item in items) {

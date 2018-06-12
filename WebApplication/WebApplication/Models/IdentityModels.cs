@@ -10,11 +10,12 @@ namespace WebApplication.Models
     // В профиль пользователя можно добавить дополнительные данные, если указать больше свойств для класса ApplicationUser. Подробности см. на странице https://go.microsoft.com/fwlink/?LinkID=317594.
     public class ApplicationUser : IdentityUser
     {
-        public Customer Customer { get; set; }
+        public int CustomerId { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Обратите внимание, что authenticationType должен совпадать с типом, определенным в CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+            userIdentity.AddClaim(new Claim("CustomerId", this.CustomerId.ToString()));
             // Здесь добавьте утверждения пользователя
             return userIdentity;
         }

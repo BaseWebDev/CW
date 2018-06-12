@@ -18,6 +18,7 @@ namespace WebApplication.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -148,7 +149,10 @@ namespace WebApplication.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model) {
             if (ModelState.IsValid) {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                Customer cust = new Customer();
+                db.Customers.Add(cust);
+                db.SaveChanges();
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, CustomerId = cust.Id };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded) {
                     // если создание прошло успешно, то добавляем роль пользователя

@@ -17,15 +17,15 @@ namespace WebApplication.Models {
             Product p2 = new Product(@"Лабораторные весы CAS MWP-150Лампа натриевая BELLIGHT ДНаЗ 600 Вт Е40/57 Агро BL, Е40/57, 85000лм, 380 В зеркальная", 115.00m, "5867011", uRL2);
             Product p3 = new Product(@"Ежедневник на скрытом гребне ""Россия"", экокожа, А5, 160 листов", 253.75m, "4213477", uRL3);
             Order ord1 = new Order();
-            ord1.Add(p1, 10);
-            ord1.Add(p2, 10);
-            ord1.Add(p3, 10);
+            ord1.AddItem(p1, 10);
+            ord1.AddItem(p2, 10);
+            ord1.AddItem(p3, 10);
             Order ord2 = new Order();
-            ord2.Add(p1, 20);
-            ord2.Add(p2, 20);
-            ord2.Add(p3, 30);
+            ord2.AddItem(p1, 20);
+            ord2.AddItem(p2, 20);
+            ord2.AddItem(p3, 30);
             Order ord3 = new Order();
-            ord3.Add(p2, 30);
+            ord3.AddItem(p2, 30);
 
 
             Customer cust1 = new Customer();
@@ -57,7 +57,7 @@ namespace WebApplication.Models {
             var admin = new ApplicationUser { Email = "antonsermus@mail.ru", UserName = "antonsermus@mail.ru" };
             string passwordAdmin = "Alskd43764q@";
             var resultAdmin = userManager.Create(admin, passwordAdmin);
-            admin.Customer = cust1;
+            admin.CustomerId = cust1.Id;
 
             // если создание пользователя прошло успешно
             if (resultAdmin.Succeeded) {
@@ -70,7 +70,7 @@ namespace WebApplication.Models {
             string passwordUser = "S123456gjTgr&^";
             var resultUser = userManager.Create(user, passwordUser);
 
-            user.Customer = cust2;
+            user.CustomerId = cust2.Id;
             // если создание пользователя прошло успешно
             if (resultUser.Succeeded) {
                 // добавляем для пользователя роль
