@@ -57,7 +57,9 @@ namespace WebApplication.Controllers
                 PagingInfo = new PagingInfo {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
-                    TotalItems = db.Products.Count()
+                    TotalItems = category == null ? 
+                    db.Products.Count():
+                    db.Products.Where(prd => prd.Category == category).Count()
                 },
                 CurrentCategory = category
             };
