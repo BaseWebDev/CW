@@ -16,7 +16,7 @@ namespace WebApplication
     {
         protected void Application_Start()
         {
-            Database.SetInitializer<ApplicationDbContext>(new AppDbInitializer());
+            Database.SetInitializer<AppDbContext>(new AppDbInitializer());
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

@@ -3,7 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using SiteJointPurchase.Domain.Entities;
 
 namespace WebApplication.Models {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Customer> Customers { get; set; }
         public DbSet<JointPurchase> JointPurchases { get; set; }
@@ -11,14 +11,14 @@ namespace WebApplication.Models {
         public DbSet<Item> Items { get; set; }
         public DbSet<Product> Products { get; set; }
         
-        public ApplicationDbContext()
+        public AppDbContext()
             : base("JointPurchase", throwIfV1Schema: false)
         {
         }
 
-        public static ApplicationDbContext Create()
+        public static AppDbContext Create()
         {
-            return new ApplicationDbContext();
+            return new AppDbContext();
         }
        
     }

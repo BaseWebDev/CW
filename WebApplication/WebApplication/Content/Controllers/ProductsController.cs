@@ -13,7 +13,7 @@ namespace WebApplication.Controllers
 {
     public class ProductsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private AppDbContext db = new AppDbContext();
         public int pageSize = 4;
         // GET: Products
         public ActionResult Index()

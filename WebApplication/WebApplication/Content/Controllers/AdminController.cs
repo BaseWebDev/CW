@@ -10,7 +10,7 @@ namespace WebApplication.Controllers
 {
     public class AdminController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private AppDbContext db = new AppDbContext();
         // GET: Admin
         // Доступ только для админа
         [Authorize(Roles = "admin")]

@@ -12,7 +12,7 @@ namespace WebApplication.Controllers
 {
     public class CartController : Controller {
 
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private AppDbContext db = new AppDbContext();
         private IOrderProcessor orderProcessor= new EmailOrderProcessor(new EmailSettings());
 
         //public CartController(IOrderProcessor processor) {

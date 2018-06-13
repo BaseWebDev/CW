@@ -6,16 +6,60 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.IO;
 
 namespace WebApplication.Models {
-    public class AppDbInitializer : DropCreateDatabaseAlways<ApplicationDbContext> {
-        protected override void Seed(ApplicationDbContext context) {
-            //URLDate uRL1 = new URLDate(@"https://www.sima-land.ru/134480/narukavniki-neon-19h19-cm-ot-3-6-let-59640np-intex/", DateTime.Now);
-            //URLDate uRL2 = new URLDate(@"https://www.sima-land.ru/134262/skeytbord-pauk-kolesa-pvc-d-50-mm-cveta-miks/", DateTime.Now);
-            //URLDate uRL3 = new URLDate(@"https://www.sima-land.ru/134262/skeytbord-pauk-kolesa-pvc-d-50-mm-cveta-miks/", DateTime.Now);
-            Product p1 = new Product(@"Лабораторные весы CAS MWP-150", 11563.96m, "3218078");
-            Product p2 = new Product(@"Лабораторные весы CAS MWP-150Лампа натриевая BELLIGHT ДНаЗ 600 Вт Е40/57 Агро BL, Е40/57, 85000лм, 380 В зеркальная", 115.00m, "5867011");
-            Product p3 = new Product(@"Ежедневник на скрытом гребне ""Россия"", экокожа, А5, 160 листов", 253.75m, "4213477");
+   
+    public class AppDbInitializer : DropCreateDatabaseAlways<AppDbContext> {
+        const string imageDir = @"D:\Code\BaseWebDev\CW\WebApplication\WebApplication\Images\";
+        protected override void Seed(AppDbContext context) {
+            int i = 0;
+            Product p1 = new Product() {
+                Sku = "34568"+(i++).ToString(),
+                Name = "Рогожка 60 см",
+                Price = 120.24m,
+                Category = "Рогожка"
+            };
+            AddImage(p1, imageDir+@"18646v1.jpg");
+            Product p2 = new Product() {
+                Sku = "34568" + (i++).ToString(),
+                Name = "Сатин 120 см",
+                Price = 224.00m,
+                Category = "Сатин"
+            };
+            AddImage(p2, imageDir + @"18846v9.jpg");
+            Product p3 = new Product() {
+                Sku = "34568" + (i++).ToString(),
+                Name = "Рогожка 60 см",
+                Price = 120.24m,
+                Category = "Рогожка"
+            };
+            AddImage(p3, imageDir + @"18859v2.jpg");
+
+            Product p4 = new Product() {Sku = "34568" + (i++).ToString(), Name = @"Бязь ""Лайт"" 60 см",Price = 60.24m, Category = "Бязь" };
+            AddImage(p4, imageDir + @"18810v1.jpg");
+            context.Products.Add(p4);
+            Product p5 = new Product() { Sku = "34568" + (i++).ToString(), Name = @"Бязь ""Премиум"" 60 см", Price = 60.24m, Category = "Бязь" };
+            AddImage(p5, imageDir + @"18882v1.jpg");
+            context.Products.Add(p5);
+            Product p6 = new Product() { Sku = "34568" + (i++).ToString(), Name = @"Бязь ""Комфорт"" 80 см", Price = 95.16m, Category = "Бязь" };
+            AddImage(p6, imageDir + @"18891v1.jpg");
+            context.Products.Add(p6);
+            Product p7 = new Product() { Sku = "34568" + (i++).ToString(), Name = @"Бязь ""Люкс"" 60 см", Price = 56.77m, Category = "Бязь" };
+            AddImage(p7, imageDir + @"18891v6.jpg");
+            context.Products.Add(p7);
+            Product p8 = new Product() { Sku = "34568" + (i++).ToString(), Name = @"Бязь ""Экстра"" 220 см", Price = 134.64m, Category = "Бязь" };
+            AddImage(p8, imageDir + @"18891v2.jpg");
+            context.Products.Add(p8);
+            Product p9 = new Product() { Sku = "34568" + (i++).ToString(), Name = @"Бязь ""Ультра"" 60 см", Price = 46.17m, Category = "Бязь" };
+            AddImage(p9, imageDir + @"18918v2.jpg");
+            context.Products.Add(p9);
+            Product p10 = new Product() { Sku = "34568" + (i++).ToString(), Name = @"Бязь ""ГОСТ"" 120 см", Price = 90.72m, Category = "Бязь" };
+            AddImage(p10, imageDir + @"18949v1.jpg");
+            context.Products.Add(p10);
+
+
+
             Cart ord1 = new Cart();
             ord1.AddItem(p1, 10);
             ord1.AddItem(p2, 10);
@@ -26,7 +70,6 @@ namespace WebApplication.Models {
             ord2.AddItem(p3, 30);
             Cart ord3 = new Cart();
             ord3.AddItem(p2, 30);
-
 
             Customer cust1 = new Customer();
             // Добавим список покупок
@@ -80,6 +123,13 @@ namespace WebApplication.Models {
 
             base.Seed(context);
 
+        }
+
+        private void AddImage(Product p, string imageFile) {     
+            if (File.Exists(imageFile)) {
+                p.ImageData = File.ReadAllBytes(imageFile);
+                p.ImageMimeType = MimeMapping.GetMimeMapping(imageFile);
+            }
         }
     }
 }
