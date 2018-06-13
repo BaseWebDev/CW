@@ -11,10 +11,11 @@
 
     <h3>
         <strong>@Model.Name</strong>
-        <span class="pull-right label label-primary">@Model.Price.ToString("# руб")</span>
+        <span class="pull-right label label-primary">@Model.Price.ToString("#.#,0# руб/м")</span>
     </h3>
     @using (Html.BeginForm("AddToCart", "Cart")) {
         <div class="pull-right">
+            @Html.TextBox("Quantity","10")
             @Html.HiddenFor(x => x.Id)
             @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
             <input type="submit" class="btn btn-success" value="Добавить в корзину" />
