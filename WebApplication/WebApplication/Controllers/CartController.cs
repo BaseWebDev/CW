@@ -26,16 +26,6 @@ namespace WebApplication.Controllers
             });
         }
 
-        //public RedirectToRouteResult AddToCart(Cart cart, int Id, string returnUrl) {  // Id интерпретируется дословно
-        //    Product prd = db.Products
-        //        .FirstOrDefault(g => g.Id == Id);
-
-        //    if (prd != null) {
-        //        cart.AddItem(prd, 1);
-        //    }
-        //    return RedirectToAction("Index", new { returnUrl });
-        //}
-
         public RedirectToRouteResult AddToCart(Cart cart,string Quantity, int Id, string returnUrl) {  // Id интерпретируется дословно
             Product prd = db.Products
                 .FirstOrDefault(g => g.Id == Id);
@@ -69,6 +59,7 @@ namespace WebApplication.Controllers
 
             if (ModelState.IsValid) {
                 orderProcessor.ProcessOrder(cart, shippingDetails);
+
                 cart.Clear();
                 return View("Completed");
             } else {

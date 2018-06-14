@@ -27,35 +27,35 @@ namespace WebApplication.Models {
                 Price = 224.00m,
                 Category = "Сатин"
             };
-            AddImage(p2, imageDir + @"18846v9.jpg");
+            AddImage(p2, imageDir + @"18646v2.jpg");
             Product p3 = new Product() {
                 Sku = "34568" + (i++).ToString(),
                 Name = "Рогожка 60 см",
                 Price = 120.24m,
                 Category = "Рогожка"
             };
-            AddImage(p3, imageDir + @"18859v2.jpg");
+            AddImage(p3, imageDir + @"18694v3.jpg");
 
             Product p4 = new Product() {Sku = "34568" + (i++).ToString(), Name = @"Бязь ""Лайт"" 60 см",Price = 60.24m, Category = "Бязь" };
-            AddImage(p4, imageDir + @"18810v1.jpg");
+            AddImage(p4, imageDir + @"18694v4.jpg");
             context.Products.Add(p4);
             Product p5 = new Product() { Sku = "34568" + (i++).ToString(), Name = @"Бязь ""Премиум"" 60 см", Price = 60.24m, Category = "Бязь" };
-            AddImage(p5, imageDir + @"18882v1.jpg");
+            AddImage(p5, imageDir + @"18767v2.jpg");
             context.Products.Add(p5);
             Product p6 = new Product() { Sku = "34568" + (i++).ToString(), Name = @"Бязь ""Комфорт"" 80 см", Price = 95.16m, Category = "Бязь" };
-            AddImage(p6, imageDir + @"18891v1.jpg");
+            AddImage(p6, imageDir + @"18774v1.jpg");
             context.Products.Add(p6);
             Product p7 = new Product() { Sku = "34568" + (i++).ToString(), Name = @"Бязь ""Люкс"" 60 см", Price = 56.77m, Category = "Бязь" };
-            AddImage(p7, imageDir + @"18891v6.jpg");
+            AddImage(p7, imageDir + @"18774v3.jpg");
             context.Products.Add(p7);
             Product p8 = new Product() { Sku = "34568" + (i++).ToString(), Name = @"Бязь ""Экстра"" 220 см", Price = 134.64m, Category = "Бязь" };
-            AddImage(p8, imageDir + @"18891v2.jpg");
+            AddImage(p8, imageDir + @"18810v1.jpg");
             context.Products.Add(p8);
             Product p9 = new Product() { Sku = "34568" + (i++).ToString(), Name = @"Бязь ""Ультра"" 60 см", Price = 46.17m, Category = "Бязь" };
-            AddImage(p9, imageDir + @"18918v2.jpg");
+            AddImage(p9, imageDir + @"18846v 6.jpg");
             context.Products.Add(p9);
             Product p10 = new Product() { Sku = "34568" + (i++).ToString(), Name = @"Бязь ""ГОСТ"" 120 см", Price = 90.72m, Category = "Бязь" };
-            AddImage(p10, imageDir + @"18949v1.jpg");
+            AddImage(p10, imageDir + @"18846v9.jpg");
             context.Products.Add(p10);
 
 

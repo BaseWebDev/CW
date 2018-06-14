@@ -2,15 +2,17 @@
 @using WebApplication.HtmlHelpers
 @model ProductsListViewModel
 
-
 @{
     ViewBag.Title = "ЛоскутОк - Товары";
 }
-@foreach (var prd in Model.Products) {
-        @Html.Partial("ProductSummary", prd)
-}
-
-<div class="btn-group pull-right">
-    @Html.PageLinks(Model.PagingInfo, x => Url.Action("List",
-            new { page = x, category = Model.CurrentCategory }))
+<div class="row">
+    @foreach (var prd in Model.Products) {
+            @Html.Partial("ProductSummary", prd)
+    }
+</div>
+<div class="row">
+    <div class="btn-group pull-right">
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("List",
+                     new { page = x, category = Model.CurrentCategory }))
+    </div>
 </div>

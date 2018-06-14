@@ -14,7 +14,7 @@ namespace WebApplication.Controllers
     public class ProductsController : Controller
     {
         private AppDbContext db = new AppDbContext();
-        public int pageSize = 4;
+        public int pageSize = 6;
         // GET: Products
         public ActionResult Index()
         {

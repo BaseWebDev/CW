@@ -6,15 +6,23 @@ using System.Web;
 namespace SiteJointPurchase.Domain.Entities {
     public class JointPurchase {
         public int Id { get; set; }
-        private List<Cart> orders = new List<Cart>();
-        public List<Cart> Orders { get => orders; set => orders = value; }
+        public List<Cart> Carts { get; set; }
         public void Add(Cart order) {
-            orders.Add(order);
+            Carts.Add(order);
         }
         public decimal GetTotal() {
             decimal total = 0;
-            foreach (var order in orders) {
-                total += order.GetTotal();
+            foreach (var cart in Carts) {
+                total += cart.GetTotal();
+            }
+            return total;
+        }
+        public int GetTotalQuantity() {
+            int total = 0;
+            foreach (var cart in Carts) {
+                foreach (var item in cart.Items) {
+                    total += item.Quantity;
+                }
             }
             return total;
         }

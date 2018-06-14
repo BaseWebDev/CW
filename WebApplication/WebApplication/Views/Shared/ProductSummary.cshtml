@@ -1,25 +1,31 @@
 ﻿@model SiteJointPurchase.Domain.Entities.Product
 
-<div class="well">
-    @if (Model.ImageData != null) {
-        <div class="pull-left" style="margin-right: 10px">
-            <img class="img-thumbnail" width="75" height="75"
-                 src="@Url.Action("GetImage", "Products",
-                new { Model.Id })" />
+<div class="col-sm-4 col-lg-4 col-md-4">
+  
+    <div class="thumbnail">
+       
+        <img class="img-prd"  
+             src="@Url.Action("GetImage", "Products",
+                new { Model.Id })" alt="@Model.Name" />
+     
+        <div class="caption">
+            <h4 class="pull-right">@Model.Price.ToString("#.#,0# руб/м")</h4>
+            <h4>@Model.Sku</h4>
+            <p>@Model.Name</p>
+            @using (Html.BeginForm("AddToCart", "Cart")) {
+                <div class="col-sm-6 col-lg-6 col-md-6 pull-left">
+                    @Html.TextBox("Quantity", "10", new { @class = "minifield" })
+                </div>
+                <div class="col-sm-6 col-lg-6 col-md-6 pull-right">
+                    @Html.HiddenFor(x => x.Id)
+                    @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                    <input type="submit" class="btn btn-success" value="В корзину" />
+                </div>
+             }
         </div>
-    }
-
-    <h3>
-        <strong>@Model.Name</strong>
-        <span class="pull-right label label-primary">@Model.Price.ToString("#.#,0# руб/м")</span>
-    </h3>
-    @using (Html.BeginForm("AddToCart", "Cart")) {
-        <div class="pull-right">
-            @Html.TextBox("Quantity","10")
-            @Html.HiddenFor(x => x.Id)
-            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
-            <input type="submit" class="btn btn-success" value="Добавить в корзину" />
+        <div class="ratings">
+           
         </div>
-    }
-    <span class="lead">@Model.Sku</span>
+        
+    </div>
 </div>

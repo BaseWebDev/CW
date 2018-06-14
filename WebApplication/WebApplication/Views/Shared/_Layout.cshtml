@@ -1,41 +1,5 @@
-﻿<!D@*OCTYPE html>
-    <html>
-    <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>@ViewBag.Title</title>
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
-    </head>
-    <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-
-                <div class="navbar navbar-inverse" role="navigation">
-                    <a class="navbar-brand" href="#">ЛоскутОк</a>
-                    <ul class="nav navbar-nav">
-                        <li> @Html.Partial("_LoginPartial")</li>
-                        <li> @Html.Action("Summary", "Cart")</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year – ЛоскутОк</p>
-            </footer>
-        </div>
-
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
-    </body>
-    </html>*@
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="ru">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,7 +15,8 @@
     </style>
 </head>
 <body>
-    <div class="navbar navbar-inverse" role="navigation">
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div>
             <a class="navbar-brand" href="#">
                 <span class="hidden-xs">ЛоскутОк - с миру по метру</span>
@@ -66,24 +31,30 @@
             @Html.Partial("_LoginPartial")
         </div>
     </div>
-    <div class="visible-xs">
-        @Html.Action("Menu", "Nav", new { horizontalNav = true })
+    <div class="container">
+        <div class="visible-xs">
+            @Html.Action("Menu", "Nav", new { horizontalNav = true })
+        </div>
+        <div class="row panel">
+            <div id="categories" class="col-xs-3 hidden-xs">
+                @Html.Action("Menu", "Nav")
+            </div>
+            <div class="col-xs-9">
+                @RenderBody()
+            </div>
+        </div>
     </div>
-    <div class="row panel">
-        <div id="categories" class="col-xs-3 hidden-xs">
-            @Html.Action("Menu", "Nav")
-        </div>
-        <div class="col-xs-8">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year – ЛоскутОк</p>
-            </footer>
-        </div>
+    <div class="container">
+        <hr>
 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
+        <footer>
+            <div class="col-lg-12">
+                <p>&copy; @DateTime.Now.Year – ЛоскутОк</p>
+            </div>
+        </footer>
     </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
 </html>
