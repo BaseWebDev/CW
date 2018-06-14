@@ -1,13 +1,16 @@
-﻿@model SiteJointPurchase.Domain.Entities.Cart
+﻿@using System
+@model SiteJointPurchase.Domain.Entities.Cart
+
 
 <div class="navbar-right">
     @Html.ActionLink("Заказать", "Index", "Cart",
-        new { returnUrl = Request.Url.PathAndQuery },
-        new { @class = "btn btn-default navbar-btn" })
+            new { returnUrl = Request.Url.PathAndQuery },
+            new { @class = "btn btn-default navbar-btn" })
 </div>
 
 <div class="navbar-text navbar-right">
-    <b>Ваша корзина:</b>
-    @Model.Items.Sum(x => x.Quantity) м,
-    @Model.GetTotal().ToString("# руб")
+    <b>В корзине:</b>
+    @Model.Items.Sum(x => x.Quantity).ToString("0 м   ")
+    @String.Format("{0:c} руб",Model.GetTotal().ToString())
+
 </div>

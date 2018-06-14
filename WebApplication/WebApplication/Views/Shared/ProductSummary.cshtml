@@ -14,7 +14,7 @@
             <p>@Model.Name</p>
             @using (Html.BeginForm("AddToCart", "Cart")) {
                 <div class="col-sm-6 col-lg-6 col-md-6 pull-left">
-                    @Html.TextBox("Quantity", "10", new { @class = "minifield" })
+                    @Html.TextBox("Quantity", "10", new { @class = "minifield" }) м
                 </div>
                 <div class="col-sm-6 col-lg-6 col-md-6 pull-right">
                     @Html.HiddenFor(x => x.Id)

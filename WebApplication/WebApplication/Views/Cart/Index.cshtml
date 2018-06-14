@@ -1,4 +1,5 @@
-﻿@model WebApplication.Models.CartIndexViewModel
+﻿@using System
+@model WebApplication.Models.CartIndexViewModel
 
 @{
     ViewBag.Title = "ЛоскутОк: ваша корзина";
@@ -8,46 +9,39 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Длина,м</th>
-            <th>Ткань</th>
-            <th class="text-right">Цена</th>
-            <th class="text-right">Общая цена</th>
+            <th class="text-center">Артикул</th>
+            <th class="text-center">Название</th>
+            <th class="text-right">Цена,руб/м</th>
+            <th class="text-right">Длина,м</th>
+            <th class="text-right">Стоимость,руб/м</th>
+            <th class="text-right"></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var line in Model.Cart.Items) {
+        @foreach (var item in Model.Cart.Items) {
             <tr>
-                <td class="text-center">@line.Quantity</td>
-                <td class="text-left">@line.Product.Name</td>
-                <td class="text-right">@line.Product.Price.ToString("# руб")</td>
+                <td class="text-center">@item.Product.Sku</td>
+                <td class="text-center">@item.Product.Name</td>
+                <td class="text-right">@String.Format("{0:c}", item.Product.Price.ToString())</td>
+                <td class="text-right">@item.Quantity</td>
+                <td class="text-right">@String.Format("{0:c}", (item.Quantity * item.Product.Price).ToString())</td>
                 <td class="text-right">
-                    @((line.Quantity * line.Product.Price).ToString("# руб"))
-                </td>
-                <td>
-                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
-                    {
-                        @Html.Hidden("Id", line.Product.Id)
+                    @using (Html.BeginForm("RemoveFromCart", "Cart")) {
+                        @Html.Hidden("Id", item.Product.Id)
                         @Html.HiddenFor(x => x.ReturnUrl)
                         <input class="btn btn-sm btn-warning" type="submit" value="Удалить" />
                     }
                 </td>
             </tr>
-            @*<tr>
-                <td class="text-center">@line.Quantity</td>
-                <td class="text-left">@line.Product.Name</td>
-                <td class="text-right">@line.Product.Price.ToString("# руб")</td>
-                <td class="text-right">
-                    @((line.Quantity * line.Product.Price).ToString("# руб"))
-                </td>
-            </tr>*@
         }
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3" class="text-right">Итого:</td>
+            <td colspan="4" class="text-right">Итого:</td>
             <td class="text-right">
-                @Model.Cart.GetTotal().ToString("# руб")
+                @String.Format("{0:c}", Model.Cart.GetTotal().ToString())
             </td>
+            <td></td>
         </tr>
     </tfoot>
 </table>
