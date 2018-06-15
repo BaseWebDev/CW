@@ -15,7 +15,7 @@ namespace SiteJointPurchase.Domain.Entities {
         public Product Product { get => product; set => product = value; }
         [Required]
         public int Quantity { get => quantity; set => quantity = value; }
-        public Cart Order { get; set; }
+        public Cart Cart { get; set; }
         public Item() { }
         /// <summary>
         /// Кол-во товара

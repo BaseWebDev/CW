@@ -17,20 +17,26 @@
 <body>
 
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div>
-            <a class="navbar-brand" href="/">
-                <span class="hidden-xs">ЛоскутОк - с миру по метру</span>
-                <div class="visible-xs">Лоскут</div>
-                <div class="visible-xs">Ок</div>
-            </a>
-        </div>
-        <div>
-            @Html.Action("Summary", "Cart")
-        </div>
-        <div>
-            @Html.Partial("_LoginPartial")
-        </div>
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">
+                    <span class="hidden-xs">ЛоскутОк - вместе по метру</span>
+                    <div class="visible-xs">Лоскут</div>
+                    <div class="visible-xs">Ок</div>
+                </a>
+            </div>
+            <div>
+                @Html.Action("Summary", "Cart")
+            </div>
+            <div>
+                @Html.Action("Joint", "JointPurchase")
+            </div>
+            <div>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>  
     </div>
+
     <div class="container">
         <div class="visible-xs">
             @Html.Action("Menu", "Nav", new { horizontalNav = true })

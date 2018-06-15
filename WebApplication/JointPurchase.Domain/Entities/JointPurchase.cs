@@ -1,25 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace SiteJointPurchase.Domain.Entities {
     public class JointPurchase {
+        public int MinQuantity = 1000;
+        [Key]
         public int Id { get; set; }
-        public List<Cart> Carts { get; set; }
-        public void Add(Cart order) {
-            Carts.Add(order);
+        public List<Order> Orders { get; set; }
+
+        public JointPurchase() {
+            Orders = new List<Order>();
+        }
+        public void Add(Order ord) {
+            Orders.Add(ord);
         }
         public decimal GetTotal() {
             decimal total = 0;
-            foreach (var cart in Carts) {
-                total += cart.GetTotal();
+            foreach (var order in Orders) {
+                total += order.GetTotal();
             }
             return total;
         }
         public int GetTotalQuantity() {
             int total = 0;
-            foreach (var cart in Carts) {
+            foreach (var cart in Orders) {
                 foreach (var item in cart.Items) {
                     total += item.Quantity;
                 }

@@ -1,30 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SiteJointPurchase.Domain.Entities {
     /// <summary>
     /// Заказ
     /// </summary>
-    public class Cart {
-        [Key]
+    public class Order {
         public int Id { get; set; }
         public List<Item> Items { get; set; }
-        public Cart() {
+        public Customer Customer { get; set; }
+        public JointPurchase JointPurchase { get; set; }
+        public Order() {
             Items = new List<Item>();
         }
-        public void AddItem(Product p, int qty) {
-            Items.Add(new Item(p, qty));
-        }
-        public void RemoveItem(Product p) {
-            Items.RemoveAll(prd => prd.Product.Id == p.Id);
-        }
-        public void Clear() {
-            Items.Clear();
-        }
 
+        public void Paid(Cart cart, Customer cust) {
+            this.Items = cart.Items;
+            this.Customer = cust;
+        }
         public decimal GetTotal() {
             decimal total = 0;
             foreach (var item in Items) {

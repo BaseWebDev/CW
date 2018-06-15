@@ -3,6 +3,7 @@ using SiteJointPurchase.Domain.Concrete;
 using SiteJointPurchase.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -59,7 +60,16 @@ namespace WebApplication.Controllers
 
             if (ModelState.IsValid) {
                 orderProcessor.ProcessOrder(cart, shippingDetails);
-
+                JointPurchase joint = db.JointPurchases
+                               .Where(j => j.Id == db.JointPurchases
+                                       .Max(x => x.Id))
+                                .FirstOrDefault();
+                Order ord = new Order();
+                ord.JointPurchase = joint;
+                ord.Paid(cart, null);
+                db.Orders.Add(ord);
+                
+                db.SaveChanges();
                 cart.Clear();
                 return View("Completed");
             } else {

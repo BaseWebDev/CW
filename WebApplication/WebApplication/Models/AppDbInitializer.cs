@@ -16,9 +16,9 @@ namespace WebApplication.Models {
             int i = 0;
             Product p1 = new Product() {
                 Sku = "34568"+(i++).ToString(),
-                Name = "Рогожка 60 см",
+                Name = "Перкаль 60 см",
                 Price = 120.24m,
-                Category = "Рогожка"
+                Category = "Перкаль"
             };
             AddImage(p1, imageDir+@"18646v1.jpg");
             Product p2 = new Product() {
@@ -30,9 +30,9 @@ namespace WebApplication.Models {
             AddImage(p2, imageDir + @"18646v2.jpg");
             Product p3 = new Product() {
                 Sku = "34568" + (i++).ToString(),
-                Name = "Рогожка 60 см",
+                Name = "Перкаль 60 см",
                 Price = 120.24m,
-                Category = "Рогожка"
+                Category = "Перкаль"
             };
             AddImage(p3, imageDir + @"18694v3.jpg");
 
@@ -60,29 +60,33 @@ namespace WebApplication.Models {
 
 
 
-            Cart ord1 = new Cart();
-            ord1.AddItem(p1, 10);
-            ord1.AddItem(p2, 10);
-            ord1.AddItem(p3, 10);
-            Cart ord2 = new Cart();
-            ord2.AddItem(p1, 20);
-            ord2.AddItem(p2, 20);
-            ord2.AddItem(p3, 30);
-            Cart ord3 = new Cart();
-            ord3.AddItem(p2, 30);
+            Cart cart1 = new Cart();
+            cart1.AddItem(p1, 10);
+            cart1.AddItem(p2, 10);
+            cart1.AddItem(p3, 10);
+            Cart cart2 = new Cart();
+            cart2.AddItem(p1, 20);
+            cart2.AddItem(p2, 20);
+            cart2.AddItem(p3, 30);
+            Cart cart3 = new Cart();
+            cart3.AddItem(p2, 30);
+
+         
 
             Customer cust1 = new Customer();
-            // Добавим список покупок
-            cust1.Add(ord1);
-            cust1.Add(ord3);
-
-            Customer cust2 = new Customer();
-            // Добавим логин пароль
-            cust2.Add(ord2);
-
             context.Customers.Add(cust1);
+
+            Customer cust2 = new Customer();          
             context.Customers.Add(cust2);
 
+            Order ord = new Order();
+            ord.Paid(cart1,cust1);
+            ord.Paid(cart2,cust2);
+            context.Orders.Add(ord);
+
+            JointPurchase joint = new JointPurchase();
+            joint.Add(ord);
+            context.JointPurchases.Add(joint);
 
             var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
 

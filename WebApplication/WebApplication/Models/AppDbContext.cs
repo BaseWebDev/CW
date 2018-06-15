@@ -10,6 +10,8 @@ namespace WebApplication.Models {
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Product> Products { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
         
         public AppDbContext()
             : base("JointPurchase", throwIfV1Schema: false)
