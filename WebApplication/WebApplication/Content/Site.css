@@ -30,6 +30,22 @@ body {
     white-space: nowrap;
 }
 
+.navbar {
+    background-color: #F48625;
+    border-color: #d35400;
+}
+.navbar-inverse .navbar-text {
+    color: #0369B4;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #0369B4;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #0369B4;
+}
+
 .thumbnail img {
     width: 320px;
     height: 150px;
