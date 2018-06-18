@@ -1,0 +1,32 @@
+﻿@using System
+@model SiteJointPurchase.Domain.Entities.Product
+
+<div class="col-sm-4 col-lg-4 col-md-4">
+  
+    <div class="thumbnail">
+       
+        <img class="img-prd"  
+             src="@Url.Action("GetImage", "Products",
+                new { Model.Id })" alt="@Model.Name" />
+     
+        <div class="caption">
+            <h4 class="pull-right">@String.Format("{0:c} руб/м", Model.Price.ToString())</h4>
+            <h4>@Model.Sku</h4>
+            <p>@Model.Name</p>
+            @using (Html.BeginForm("AddToCart", "Cart")) {
+                <div class="col-sm-6 col-lg-6 col-md-6 pull-left">
+                    @Html.TextBox("Quantity", "10", new { @class = "minifield" }) м
+                </div>
+                <div class="col-sm-6 col-lg-6 col-md-6 pull-right">
+                    @Html.HiddenFor(x => x.Id)
+                    @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                    <input type="submit" class="btn btn-success" value="В корзину" />
+                </div>
+             }
+        </div>
+        <div class="ratings">
+           
+        </div>
+        
+    </div>
+</div>

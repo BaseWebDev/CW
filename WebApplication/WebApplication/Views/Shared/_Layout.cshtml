@@ -1,43 +1,64 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title – приложение ASP.NET</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <title>@ViewBag.Title</title>
+    <style>
+        .navbar-right {
+            float: right !important;
+            margin-right: 15px;
+            margin-left: 15px;
+        }
+    </style>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Имя приложения", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a class="navbar-brand" href="/">
+                    <span class="hidden-xs">ЛоскутОк - вместе по метру</span>
+                    <div class="visible-xs">Лоскут</div>
+                    <div class="visible-xs">Ок</div>
+                </a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
-                    <li>@Html.ActionLink("О программе", "About", "Home")</li>
-                    <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
-                </ul>
+            <div>
+                @Html.Action("Summary", "Cart")
+            </div>
+            <div>
+                @Html.Action("Joint", "JointPurchase")
+            </div>
+            <div>
                 @Html.Partial("_LoginPartial")
+            </div>
+        </div>  
+    </div>
+
+    <div class="container">
+        <div class="visible-xs">
+            @Html.Action("Menu", "Nav", new { horizontalNav = true })
+        </div>
+        <div class="row panel">
+            <div id="categories" class="col-xs-3 hidden-xs">
+                @Html.Action("Menu", "Nav")
+            </div>
+            <div class="col-xs-9">
+                @RenderBody()
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
+    <div class="container">
+        <hr>
+
         <footer>
-            <p>&copy; @DateTime.Now.Year – приложение ASP.NET</p>
+            <div class="col-lg-12">
+                <p>&copy; @DateTime.Now.Year – ЛоскутОк</p>
+            </div>
         </footer>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
